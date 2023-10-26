@@ -1,0 +1,33 @@
+;HEXADECIMAL TO DECIMAL CONVERSION OF SINGLE CHARACTER IN 8086
+DATA SEGMENT
+    STR1 DB "ENTER A HEXADECIMAL NUMBER:  $"    
+    STR2 DB 13, 10, "DECIMAL NUMBER:  $"
+    CHAR DB ?
+ENDS
+
+CODE SEGMENT
+    START:
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    LEA DX, STR1
+    MOV AH, 09H
+    INT 21H
+    
+    MOV AH, 01H
+    INT 21H
+    MOV BL, AL
+    LEA DX, STR2
+    MOV AH, 09H
+    INT 21H
+    
+    MOV DL, '1'
+    MOV AH, 02H
+    INT 21H
+    
+    SUB BL, 11H   ;Conversion from hex to deci
+    MOV DL, BL
+    MOV AH, 02H
+    INT 21H
+ENDS
+END START
